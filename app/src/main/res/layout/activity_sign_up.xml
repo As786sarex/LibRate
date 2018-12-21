@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/SignUp_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grad">
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="157dp"
+
+        android:layout_marginTop="37dp"
+        android:contentDescription="@string/orText"
+        android:src="@drawable/logo_transparent" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="299dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="225dp"
+        android:textColorHint="@color/Ep"
+        app:hintTextAppearance="@color/Ep">
+
+        <AutoCompleteTextView
+            android:id="@+id/Signup_Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="@string/Email"
+            android:imeOptions="actionNext"
+            android:inputType="textNoSuggestions"
+            android:maxLines="1"
+            android:textColor="@color/Ep"
+            android:textColorHint="@color/Ep"
+            android:textIsSelectable="false"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/ic_account_box_black_24dp"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+
+        android:layout_width="299dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColorHint="@color/Ep"
+        app:hintAnimationEnabled="true"
+        app:hintTextAppearance="@color/Ep">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/Signup_Pass"
+            android:layout_height="wrap_content"
+            android:hint="@string/Password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/Ep"
+            android:textColorLink="@color/Ep"
+            android:visibility="visible"
+            tools:textColorLink="@color/Ep"
+            android:drawableStart="@drawable/ic_vpn_key_black_24dp"/>
+     </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+
+        android:layout_width="299dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="227dp"
+        android:textColorHint="@color/Ep"
+        app:hintAnimationEnabled="true"
+        app:hintTextAppearance="@color/Ep"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/Signup_conf_pass"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/Signup_conf_pass"
+            android:drawableStart="@drawable/ic_spellcheck_black_24dp"
+            android:hint="@string/Conf_pass"
+            android:inputType="textPassword"
+            android:textColorHint="@color/Ep"
+            android:textColorLink="@color/Ep"
+            android:visibility="visible"
+            tools:textColorLink="@color/Ep" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/Signup"
+        android:layout_width="271dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="140dp"
+        android:background="@color/logButtonColor"
+        android:text="@string/Sign_up"
+        android:textColor="@color/Ep"
+        android:onClick="signUp"/>
+
+    <TextView
+        android:id="@+id/Already_acc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="78dp"
+        android:text="@string/Already_have_acc"
+        android:textColor="@color/Ep"
+        android:textSize="16sp"
+        android:textAppearance="@style/Base.ThemeOverlay.AppCompat.Light"
+        />
+
+
+</RelativeLayout>

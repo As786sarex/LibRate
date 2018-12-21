@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Asif</string>
+    <string name="log_in">Log In</string>
+    <string name="Email">Enter Email</string>
+    <string name="Password">Enter Password</string>
+    <string name="NoAcc">No account?</string>
+    <string name="Create">Create One</string>
+    <string name="WebCliID">380515044827-v0khv5592ufbc95mfanpgs46kn6k500h.apps.googleusercontent.com</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_voucher">My Vouchers</string>
+    <string name="nav_Interact">Interact</string>
+    <string name="nav_Statement">Statement</string>
+    <string name="nav_Locate">Locate</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_contact">Contact Us</string>
+    <string name="RegisterButton">New Here?REGISTER</string>
+    <string name="orText"> OR </string>
+    <string name="Conf_pass">Confirm Password</string>
+    <string name="Sign_up">Register</string>
+    <string name="Already_have_acc">Already have an Account? Sign In</string>
+    <string name="Error_pass">Pass</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">Password too short or does not match</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="log_out">Log Out</string>
+    <string name="request_fragment">Request_Fragment</string>
+    <string name="sell_fragment">Sell_Fragment</string>
+    <string name="sell">Sell</string>
+    <string name="sell_books">Buy Books</string>
+    <string name="request_books">Request Books</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile">Profile</string>
+    <string name="add_item">Add Item</string>
+    <string name="name_of_the_book">Name of the Book</string>
+    <string name="description">Description</string>
+    <string name="price_of_the_book">Price of the book</string>
+    <string name="important_notes">Important Description</string>
+    <string name="for_which_semester">For Which Semester?</string>
+
+</resources>

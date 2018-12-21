@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/log_in_sc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grad"
+    tools:context=".activities.Login">
+
+
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="157dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="29dp"
+        android:src="@drawable/logo_transparent"
+        android:contentDescription="@string/orText" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="301dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="211dp"
+        android:textColor="@color/Ep"
+        android:textColorHint="@color/Ep"
+        app:hintTextAppearance="@color/Ep"
+        >
+
+        <AutoCompleteTextView
+            android:id="@+id/Edit_Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Email"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/Ep"
+            android:drawableStart="@drawable/ic_account_box_black_24dp"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+
+        android:layout_width="299dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColorHint="@color/Ep"
+        app:hintAnimationEnabled="true"
+        app:hintTextAppearance="@color/Ep">
+
+        <EditText
+            android:id="@+id/EditPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/Ep"
+            android:textColorLink="@color/Ep"
+            android:visibility="visible"
+            tools:textColorLink="@color/Ep"
+            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/Lg_in"
+        android:layout_width="271dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"
+        android:background="@color/logButtonColor"
+        android:fontFamily="sans-serif"
+        android:hapticFeedbackEnabled="true"
+        android:onClick="LogIn"
+        android:text="@string/log_in"
+        android:textColor="@color/Ep" />
+
+    <TextView
+        android:id="@+id/Register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="142dp"
+        android:text="@string/RegisterButton"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="99dp"
+        android:text="@string/orText"
+        android:textSize="20sp"
+        android:textColor="#d9d9d7" />
+
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sign_in_button"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        />
+
+
+</RelativeLayout>

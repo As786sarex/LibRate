@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "380515044827",
+    "firebase_url": "https://lib-rate.firebaseio.com",
+    "project_id": "lib-rate",
+    "storage_bucket": "lib-rate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380515044827:android:d722d1111f226924",
+        "android_client_info": {
+          "package_name": "myfab.wildcardenter.com.first_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "380515044827-vmc5a8cr3san1l4172m2kv6mo6oluj7l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "myfab.wildcardenter.com.first_app",
+            "certificate_hash": "bd94fc1198204962f81372f432c0a808da83f920"
+          }
+        },
+        {
+          "client_id": "380515044827-v0khv5592ufbc95mfanpgs46kn6k500h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsFOhPnebYBnjXnJHSqzwtgCaCW0aYtKI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "380515044827-v0khv5592ufbc95mfanpgs46kn6k500h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
