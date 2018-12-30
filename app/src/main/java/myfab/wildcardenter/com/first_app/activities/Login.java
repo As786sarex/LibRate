@@ -143,7 +143,7 @@ public class Login extends AppCompatActivity {
    @Override
    public void onActivityResult(int requestCode, int resultCode, Intent data) {
        super.onActivityResult(requestCode, resultCode, data);
-       if (requestCode == RC_SIGN_IN) {
+       if (requestCode == RC_SIGN_IN&& resultCode==RESULT_OK) {
            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
            try {
                // Google Sign In was successful, authenticate with Firebase

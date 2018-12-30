@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1b1a1a</color>
-    <color name="colorPrimaryDark">#6fcf51</color>
-    <color name="colorAccent">#fa113c</color>
+    <color name="colorPrimary">#0277bc</color>
+    <color name="colorPrimaryDark">#004c8b</color>
+    <color name="colorAccent">#58a5ef</color>
     <color name="spco">#A4A4A4</color>
     <color name="Ep">#f6f2f2</color>
     <color name="grcl">#ff6333</color>
     <color name="createOne">#ffffff</color>
     <color name="logButtonColor">#f3bf0e0e</color>
+    <color name="gradcolorup">#fa113c</color>
 
     <color name="nav_grad_start">#010100</color>
     <color name="nav_grad_end">#000066</color>
+    <color name="TextColorBlack">#000000</color>
+    <color name="TextColorWhite">#ffffff</color>
+    <color name="cardViewBackgrd">#d7d0d0</color>
 
 </resources>

@@ -1,22 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    >
+<android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Sell_Fragment">
+    android:scrollbarStyle="insideInset"
+    style="@style/Widget.Support.CoordinatorLayout"
+    >
+    <LinearLayout
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/sell_recyclerView"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        tools:itemCount="11"
-        android:layoutMode="clipBounds"
-        tools:listitem="@layout/sell_item_view"
-        tools:spanCount="2"
-        tools:layoutManager="GridLayoutManager" />
+        >
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/ViewPagerSlider"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_gravity="top"
+            android:overScrollMode="always">
 
+        </android.support.v4.view.ViewPager>
+
+        <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+            android:id="@+id/sell_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:clipChildren="true"
+            android:fitsSystemWindows="true"
+            app:shimmer_demo_angle="15"
+            app:shimmer_demo_child_count="12"
+            app:shimmer_demo_grid_child_count="2"
+            app:shimmer_demo_layout_manager_type="grid"
+            app:shimmer_demo_reverse_animation="false"
+            tools:itemCount="26"
+            tools:layoutManager="GridLayoutManager"
+            tools:listitem="@layout/recycler_view_item"
+            tools:spanCount="5" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>

@@ -1,14 +1,15 @@
 package myfab.wildcardenter.com.first_app.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -42,18 +43,17 @@ public class SellActivitySelector extends AppCompatActivity implements AdapterVi
     StorageTask uploadTask;
     StorageReference storageReference;
 
-    private Spinner spinner;
     private EditText bookName, bookPrice, bookDesc;
     ImageView bookImage, cancelUpload;
     TextView uploadPost;
-    private List<String> spinnerList;
-    String onWhichItemSpinner;
+    String onWhichItemSpinner,onWhichDeptSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell_selector);
-        spinner = findViewById(R.id.Spinner);
+        Spinner spinner = findViewById(R.id.Spinner);
+        Spinner deptSpinner = findViewById(R.id.SpinnerDept);
         bookName = findViewById(R.id.sellItemNameSelector);
         bookPrice = findViewById(R.id.sellItemPriceSelector);
         bookDesc = findViewById(R.id.sellItemNoteSelector);
@@ -61,7 +61,7 @@ public class SellActivitySelector extends AppCompatActivity implements AdapterVi
         cancelUpload = findViewById(R.id.uploadClose);
         uploadPost = findViewById(R.id.UploadPost);
 
-        spinnerList = new ArrayList<>();
+        List<String> spinnerList = new ArrayList<>();
         spinnerList.add("1st Semester");
         spinnerList.add("2nd Semester");
         spinnerList.add("3rd Semester");
@@ -71,7 +71,22 @@ public class SellActivitySelector extends AppCompatActivity implements AdapterVi
         spinnerList.add("7th Semester");
         spinnerList.add("8th Semester");
 
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+        ArrayAdapter<String> deptArrayAdepter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                getResources().getStringArray(R.array.SpinnerDeptItems));
+        deptSpinner.setAdapter(deptArrayAdepter);
+        deptSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                onWhichDeptSpinner = (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
                 spinnerList);
         stringArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(stringArrayAdapter);
@@ -84,36 +99,59 @@ public class SellActivitySelector extends AppCompatActivity implements AdapterVi
                 finish();
             }
         });
-        uploadPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getBookName = bookName.getText().toString().trim();
-                getBookDesc = bookDesc.getText().toString().trim();
-                getBookPrice = bookPrice.getText().toString().trim();
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
 
-                if (getBookName.isEmpty() || getBookPrice.isEmpty() || getBookDesc.isEmpty()) {
-                    Toast.makeText(SellActivitySelector.this, "Fields are required!!", Toast.LENGTH_SHORT).show();
-                } else {
-                    uploadImg();
+        NetworkInfo activeNetwork = null;
+        if (cm != null) {
+            activeNetwork = cm.getActiveNetworkInfo();
+        }
+
+        final boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+
+            uploadPost.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getBookName = bookName.getText().toString().trim();
+                    getBookDesc = bookDesc.getText().toString().trim();
+                    getBookPrice = bookPrice.getText().toString().trim();
+
+                    if (getBookName.isEmpty() || getBookPrice.isEmpty() || getBookDesc.isEmpty()) {
+                        Toast.makeText(SellActivitySelector.this, "Fields are required!!", Toast.LENGTH_SHORT).show();
+                    } else if (!isConnected) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SellActivitySelector.this);
+                        builder.setMessage("\nOops....Looks like you are not connected to the Internet." +
+                                "\n\n").setTitle("Network Error!!").setCancelable(true)
+                                .setIcon(R.mipmap.ic_launcher).show();
+
+                    } else {
+                        try {
+                            uploadImg();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
-            }
-        });
+            });
 
 
-        CropImage.activity()
-                .setAspectRatio(1, 1)
-                .setFixAspectRatio(true)
-                .start(SellActivitySelector.this);
-    }
+
+            CropImage.activity()
+                    .setAspectRatio(1, 1)
+                    .setFixAspectRatio(true)
+                    .start(SellActivitySelector.this);
+        }
 
 
-    private void uploadImg() {
+    private void uploadImg(){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Uploading..");
         progressDialog.show();
         if (imageUri != null) {
             final StorageReference file = storageReference.child(System.currentTimeMillis()
-                    + "." + getFileExtension(imageUri));
+                    + ".jpeg");
 
             uploadTask = file.putFile(imageUri);
             uploadTask.continueWithTask(new Continuation() {
@@ -131,11 +169,13 @@ public class SellActivitySelector extends AppCompatActivity implements AdapterVi
                         Uri downloadUri = task.getResult();
                         myimageUri = downloadUri.toString();
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Sell_posts");
+
                         String postId = reference.push().getKey();
 
                         HashMap<String, Object> objectHashMap = new HashMap<>();
                         objectHashMap.put("postId", postId);
                         objectHashMap.put("postImage", myimageUri);
+                        objectHashMap.put("forDepartment",onWhichDeptSpinner);
                         objectHashMap.put("for_Semester", onWhichItemSpinner);
                         objectHashMap.put("bookName", getBookName);
                         objectHashMap.put("bookPrice", getBookPrice);
@@ -154,6 +194,7 @@ public class SellActivitySelector extends AppCompatActivity implements AdapterVi
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Toast.makeText(SellActivitySelector.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
             });
         } else {
@@ -171,15 +212,7 @@ public class SellActivitySelector extends AppCompatActivity implements AdapterVi
 
     }
 
-    private String getFileExtension(Uri uri) {
-        ContentResolver contentResolver = getApplicationContext().getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        if (contentResolver.getType(uri) != null) {
-            return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-        } else {
-            return "jpeg";
-        }
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -188,7 +221,6 @@ public class SellActivitySelector extends AppCompatActivity implements AdapterVi
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             imageUri = result.getUri();
             bookImage.setImageURI(imageUri);
-            Toast.makeText(this, getFileExtension(imageUri), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Cancelled!!!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(SellActivitySelector.this, MainActivity.class));

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.MySellItemFragment"
+    android:background="@color/cardViewBackgrd"
+    >
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        android:id="@+id/My_sell_item_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:shimmer_demo_child_count="8"
+        app:shimmer_demo_layout_manager_type="linear_vertical"
+        app:shimmer_demo_angle="15"
+        tools:listitem="@layout/my_sell_item_blueprint" />
+
+</FrameLayout>

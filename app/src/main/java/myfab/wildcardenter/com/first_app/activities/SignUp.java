@@ -19,32 +19,43 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 import myfab.wildcardenter.com.first_app.R;
 
 public class SignUp extends AppCompatActivity {
     TextView textView;
-    AutoCompleteTextView mEmail;
+    AutoCompleteTextView mEmail,mUserName;
     EditText mPass;
     EditText mConfPass;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference reference;
     private static final String TAG = "SignUp";
     TextView tv;
+    String fullName,email;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        firebaseAuth = FirebaseAuth.getInstance();
         textView = findViewById(R.id.Already_acc);
         tv = findViewById(R.id.Drawer_profile_name);
         mEmail = findViewById(R.id.Signup_Email);
         mPass = findViewById(R.id.Signup_Pass);
         mConfPass = findViewById(R.id.Signup_conf_pass);
+        mUserName=findViewById(R.id.Signup_Name);
         String s = "Already have an Account? Sign In";
 
         SpannableString spannableString = new SpannableString(s);
@@ -83,7 +94,7 @@ public class SignUp extends AppCompatActivity {
             }
 
         });
-        firebaseAuth = FirebaseAuth.getInstance();
+
 
     }
 
@@ -96,8 +107,9 @@ public class SignUp extends AppCompatActivity {
         mPass.setError(null);
         mPass.setError(null);
 
-        String email = mEmail.getText().toString();
+        email = mEmail.getText().toString().trim();
         String password = mPass.getText().toString();
+        fullName =mUserName.getText().toString().trim();
         boolean cancell = false;
         View fView = null;
 
@@ -105,6 +117,11 @@ public class SignUp extends AppCompatActivity {
             mPass.setError(getString(R.string.error_invalid_password));
             fView = mPass;
             cancell = true;
+        }
+        if(TextUtils.isEmpty(fullName)){
+            mUserName.setError(getString(R.string.error_field_required));
+            fView=mUserName;
+            cancell=true;
         }
 
         // Check for a valid email address.
@@ -151,14 +168,36 @@ public class SignUp extends AppCompatActivity {
                 if (!task.isSuccessful()) {
                     showErrorDialog("Error!!!");
                 } else {
-
-                    Intent intent = new Intent(SignUp.this, Login.class);
-                    startActivity(intent);
-                    finish();
+                    createUserDatabaseEntry();
+                    Toast.makeText(SignUp.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                 }
             }
 
 
+        });
+    }
+
+    private void createUserDatabaseEntry() {
+        FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+        String userId=currentUser.getUid();
+        reference=FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        HashMap<String,Object> hashMap=new HashMap<>();
+        hashMap.put("userId",userId);
+        hashMap.put("username", fullName);
+        hashMap.put("email",email);
+        hashMap.put("contactNumber","");
+        hashMap.put("imageUri","https://firebasestorage.googleapis.com/v0/b/lib-rate.appspot.com/o/download.jpg?alt=media&token=0d4c671d-dff4-4fc3-a306-bed71c2ed28f");
+        reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Intent intent = new Intent(SignUp.this, Login.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+
+            }
         });
     }
 
@@ -168,4 +207,5 @@ public class SignUp extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok, null).show();
 
     }
+
 }
